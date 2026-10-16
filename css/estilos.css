@@ -1,4 +1,4 @@
-/* Diseño compartido por las cuatro páginas */
+/* Estilos generales del sitio */
 :root {
   --ink: #664930;
   --coral: #ffdbbb;
@@ -487,7 +487,6 @@ select:focus-visible {
     text-align: center;
   }
 }
-/* Paleta de la referencia */
 .hero {
   background-blend-mode: luminosity;
   background-color: #997e67;
