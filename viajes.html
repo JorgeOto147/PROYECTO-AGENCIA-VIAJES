@@ -1,251 +1,246 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Explora los paquetes de Mundo Travel: playa, naturaleza, aventura y cultura. Compara precios y duración.">
-    <title>Explora nuestros viajes | Mundo Travel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/estilos.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mundo Travel, agencia de viajes en Quito. Paquetes a Galápagos, Cartagena, Cancún y más.">
+  <meta name="author" content="Andrés Moreno">
+  <title>Explora nuestros viajes | Mundo Travel</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/estilos.css" rel="stylesheet">
 </head>
-
 <body>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-lg container">
-            <a class="navbar-brand" href="index.html">mundo<span>travel</span>
-                <b>↗</b>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-                aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
-                <span class="navbar-toggler-icon">
-                </span>
-            </button>
-            <div class="collapse navbar-collapse" id="menu">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link " href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="viajes.html">Viajes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="nosotros.html">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="contacto.html">Contacto</a>
-                    </li>
-                </ul>
-                <a class="btn btn-dark" href="viajes.html#seleccion">Ver selección <span class="contador">0</span>
-                </a>
-            </div>
-        </nav>
-    </header>
-    <main>
-        <!-- Viajes -->
-        <section class="page-top container">
-            <p class="eyebrow">ELIGE TU PRÓXIMA AVENTURA</p>
-            <h1>Un viaje para<br>cada forma de ser.</h1>
-            <p>Busca, compara y guarda los paquetes que te interesan.</p>
-        </section>
-        <section class="container">
-            <form id="buscador" class="search-box">
-                <div>
-                    <label for="buscar">¿A dónde quieres ir?</label>
-                    <input id="buscar" name="destino" placeholder="Destino o país">
-                </div>
-                <div>
-                    <label for="categoria">Tu forma de viajar</label>
-                    <select id="categoria" name="categoria">
-                        <option value="">Todas las experiencias</option>
-                        <option>Playa</option>
-                        <option>Naturaleza</option>
-                        <option>Aventura</option>
-                        <option>Cultura</option>
-                    </select>
-                </div>
-                <button class="btn btn-coral" type="submit">Buscar viajes ↗</button>
-            </form>
-            <p id="resultado" class="mt-4" role="status">
-            </p>
-            <div class="row g-4">
-                <article class="col-md-6 col-lg-4 destino" data-nombre="Galápagos Ecuador" data-categoria="Naturaleza">
-                    <div class="trip-card h-100">
-                        <div class="trip-photo">
-                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=85"
-                                alt="Paisaje de las islas Galápagos" loading="lazy">
-                            <span>Naturaleza</span>
-                        </div>
-                        <div class="p-4">
-                            <p class="eyebrow">Ecuador · 5 días / 4 noches</p>
-                            <h3>Galápagos</h3>
-                            <p>Encuentra un mundo que solo existe aquí.</p>
-                            <div class="price-row">
-                                <div>
-                                    <small>Desde</small>
-                                    <strong>$450</strong>
-                                    <small>por persona</small>
-                                </div>
-                                <button class="btn btn-outline-dark agregar" data-id="0">Seleccionar ↗</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-md-6 col-lg-4 destino" data-nombre="Cartagena Colombia" data-categoria="Cultura">
-                    <div class="trip-card h-100">
-                        <div class="trip-photo">
-                            <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1400&q=85"
-                                alt="Calles coloridas de Cartagena" loading="lazy">
-                            <span>Cultura</span>
-                        </div>
-                        <div class="p-4">
-                            <p class="eyebrow">Colombia · 4 días / 3 noches</p>
-                            <h3>Cartagena</h3>
-                            <p>Calles de colores, historia y brisa caribeña.</p>
-                            <div class="price-row">
-                                <div>
-                                    <small>Desde</small>
-                                    <strong>$380</strong>
-                                    <small>por persona</small>
-                                </div>
-                                <button class="btn btn-outline-dark agregar" data-id="1">Seleccionar ↗</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-md-6 col-lg-4 destino" data-nombre="Cancún México" data-categoria="Playa">
-                    <div class="trip-card h-100">
-                        <div class="trip-photo">
-                            <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1400&q=85"
-                                alt="Playa de aguas turquesa en Cancún" loading="lazy">
-                            <span>Playa</span>
-                        </div>
-                        <div class="p-4">
-                            <p class="eyebrow">México · 5 días / 4 noches</p>
-                            <h3>Cancún</h3>
-                            <p>Agua turquesa y días sin prisa.</p>
-                            <div class="price-row">
-                                <div>
-                                    <small>Desde</small>
-                                    <strong>$650</strong>
-                                    <small>por persona</small>
-                                </div>
-                                <button class="btn btn-outline-dark agregar" data-id="2">Seleccionar ↗</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-md-6 col-lg-4 destino" data-nombre="Cuenca Ecuador" data-categoria="Cultura">
-                    <div class="trip-card h-100">
-                        <div class="trip-photo">
-                            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1400&q=85"
-                                alt="Paisaje cerca de Cuenca" loading="lazy">
-                            <span>Cultura</span>
-                        </div>
-                        <div class="p-4">
-                            <p class="eyebrow">Ecuador · 3 días / 2 noches</p>
-                            <h3>Cuenca</h3>
-                            <p>Arquitectura, sabores y paseos por descubrir.</p>
-                            <div class="price-row">
-                                <div>
-                                    <small>Desde</small>
-                                    <strong>$180</strong>
-                                    <small>por persona</small>
-                                </div>
-                                <button class="btn btn-outline-dark agregar" data-id="3">Seleccionar ↗</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-md-6 col-lg-4 destino" data-nombre="Baños Ecuador" data-categoria="Aventura">
-                    <div class="trip-card h-100">
-                        <div class="trip-photo">
-                            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=85"
-                                alt="Montañas y cascadas de Baños" loading="lazy">
-                            <span>Aventura</span>
-                        </div>
-                        <div class="p-4">
-                            <p class="eyebrow">Ecuador · 2 días / 1 noche</p>
-                            <h3>Baños</h3>
-                            <p>Cascadas y aventura entre montañas.</p>
-                            <div class="price-row">
-                                <div>
-                                    <small>Desde</small>
-                                    <strong>$120</strong>
-                                    <small>por persona</small>
-                                </div>
-                                <button class="btn btn-outline-dark agregar" data-id="4">Seleccionar ↗</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="col-md-6 col-lg-4 destino" data-nombre="Punta Cana Rep. Dominicana"
-                    data-categoria="Playa">
-                    <div class="trip-card h-100">
-                        <div class="trip-photo">
-                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85"
-                                alt="Playa con palmeras en Punta Cana" loading="lazy">
-                            <span>Playa</span>
-                        </div>
-                        <div class="p-4">
-                            <p class="eyebrow">Rep. Dominicana · 6 días / 5 noches</p>
-                            <h3>Punta Cana</h3>
-                            <p>Una escapada bajo las palmeras.</p>
-                            <div class="price-row">
-                                <div>
-                                    <small>Desde</small>
-                                    <strong>$720</strong>
-                                    <small>por persona</small>
-                                </div>
-                                <button class="btn btn-outline-dark agregar" data-id="5">Seleccionar ↗</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-            <p class="fine mt-3">Los paquetes incluyen alojamiento y recorrido local. No incluyen vuelos. Las
-                fotografías son referenciales.</p>
-        </section>
-        <section id="seleccion" class="container section">
-            <div class="selection">
-                <p class="eyebrow">TU LISTA DE VIAJE</p>
-                <h2>Paquetes seleccionados</h2>
-                <div id="lista-seleccion">
-                </div>
-                <p id="total" class="total">
-                </p>
-                <a href="contacto.html" class="btn btn-coral">Ir al formulario ↗</a>
-                <button id="vaciar" class="btn btn-outline-dark">Vaciar selección</button>
-                <p class="fine mt-3">La selección se mantiene solo mientras estás en esta página. Al salir o recargar,
-                    se reinicia. No confirma una reserva.</p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <a class="footer-logo" href="index.html">mundotravel ↗</a>
-                    <p>Un destino. Mil formas de vivirlo.</p>
-                </div>
-                <div class="col-md-3">
-                    <h3>Explora</h3>
-                    <a href="viajes.html">Nuestros viajes</a>
-                    <a href="nosotros.html">El equipo</a>
-                    <a href="contacto.html">Planifica tu viaje</a>
-                </div>
-                <div class="col-md-3">
-                    <h3>Información</h3>
-                    <p>Precios por persona, sujetos a disponibilidad. Los paquetes no incluyen vuelos.</p>
-                </div>
-            </div>
-            <div class="footer-bottom">© 2026 Mundo Travel · Todos los derechos reservados</div>
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-    </script>
-    <script src="js/script.js">
-    </script>
-</body>
 
+  <!-- Menú -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg container">
+      <a class="navbar-brand" href="index.html">mundo<span>travel</span><b>↗</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="viajes.html">Viajes</a></li>
+          <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        </ul>
+        <a class="btn btn-dark" href="viajes.html#seleccion">Ver selección <span class="contador">0</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Página de viajes - Andrés Moreno -->
+  <main>
+
+    <section class="page-top container">
+      <p class="eyebrow">ELIGE TU PRÓXIMA AVENTURA</p>
+      <h1>Un viaje para<br>cada forma de ser.</h1>
+      <p>Busca, compara y guarda los paquetes que te interesan.</p>
+    </section>
+
+    <section class="container">
+
+      <!-- Buscador -->
+      <form id="buscador" class="search-box">
+        <div>
+          <label for="buscar">¿A dónde quieres ir?</label>
+          <input id="buscar" name="destino" placeholder="Destino o país">
+        </div>
+        <div>
+          <label for="categoria">Tu forma de viajar</label>
+          <select id="categoria" name="categoria">
+            <option value="">Todas las experiencias</option>
+            <option>Playa</option>
+            <option>Naturaleza</option>
+            <option>Aventura</option>
+            <option>Cultura</option>
+          </select>
+        </div>
+        <button class="btn btn-coral" type="submit">Buscar viajes ↗</button>
+        <button class="btn btn-outline-dark" type="button" id="ver-todos">Ver todos</button>
+      </form>
+      <p id="resultado" class="mt-4" role="status"></p>
+
+      <!-- Paquetes -->
+      <div class="row g-4">
+        <article class="col-md-6 col-lg-4 destino" data-nombre="Galápagos Ecuador" data-categoria="Naturaleza">
+          <div class="trip-card h-100">
+            <div class="trip-photo">
+              <img src="https://images.unsplash.com/photo-1706957614198-8d2e5f0ed6ea?auto=format&fit=crop&w=1400&q=85" alt="Roca Pináculo en la isla Bartolomé, Galápagos" loading="lazy">
+              <span>Naturaleza</span>
+            </div>
+            <div class="p-4">
+              <p class="eyebrow">Ecuador · 5 días / 4 noches</p>
+              <h3>Galápagos</h3>
+              <p>Encuentra un mundo que solo existe aquí.</p>
+              <div class="price-row">
+                <div>
+                  <small>Desde</small>
+                  <strong>$450</strong>
+                  <small>por persona</small>
+                </div>
+                <button class="btn btn-outline-dark agregar" type="button" data-viaje="Galápagos" data-precio="450">Seleccionar ↗</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-4 destino" data-nombre="Cartagena Colombia" data-categoria="Cultura">
+          <div class="trip-card h-100">
+            <div class="trip-photo">
+              <img src="https://images.unsplash.com/photo-1534943441045-1009d7cb0bb9?auto=format&fit=crop&w=1400&q=85" alt="Calle colonial del centro histórico de Cartagena" loading="lazy">
+              <span>Cultura</span>
+            </div>
+            <div class="p-4">
+              <p class="eyebrow">Colombia · 4 días / 3 noches</p>
+              <h3>Cartagena</h3>
+              <p>Calles de colores, historia y brisa caribeña.</p>
+              <div class="price-row">
+                <div>
+                  <small>Desde</small>
+                  <strong>$380</strong>
+                  <small>por persona</small>
+                </div>
+                <button class="btn btn-outline-dark agregar" type="button" data-viaje="Cartagena" data-precio="380">Seleccionar ↗</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-4 destino" data-nombre="Cancún México" data-categoria="Playa">
+          <div class="trip-card h-100">
+            <div class="trip-photo">
+              <img src="https://images.unsplash.com/photo-1457537227909-08f41319e53c?auto=format&fit=crop&w=1400&q=85" alt="Playa de agua turquesa en Cancún" loading="lazy">
+              <span>Playa</span>
+            </div>
+            <div class="p-4">
+              <p class="eyebrow">México · 5 días / 4 noches</p>
+              <h3>Cancún</h3>
+              <p>Agua turquesa y días sin prisa.</p>
+              <div class="price-row">
+                <div>
+                  <small>Desde</small>
+                  <strong>$650</strong>
+                  <small>por persona</small>
+                </div>
+                <button class="btn btn-outline-dark agregar" type="button" data-viaje="Cancún" data-precio="650">Seleccionar ↗</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-4 destino" data-nombre="Cuenca Ecuador" data-categoria="Cultura">
+          <div class="trip-card h-100">
+            <div class="trip-photo">
+              <img src="https://images.unsplash.com/photo-1548345923-64b09f955b93?auto=format&fit=crop&w=1400&q=85" alt="Cúpulas de la Catedral Nueva de Cuenca" loading="lazy">
+              <span>Cultura</span>
+            </div>
+            <div class="p-4">
+              <p class="eyebrow">Ecuador · 3 días / 2 noches</p>
+              <h3>Cuenca</h3>
+              <p>Arquitectura, sabores y paseos por descubrir.</p>
+              <div class="price-row">
+                <div>
+                  <small>Desde</small>
+                  <strong>$180</strong>
+                  <small>por persona</small>
+                </div>
+                <button class="btn btn-outline-dark agregar" type="button" data-viaje="Cuenca" data-precio="180">Seleccionar ↗</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-4 destino" data-nombre="Baños Ecuador" data-categoria="Aventura">
+          <div class="trip-card h-100">
+            <div class="trip-photo">
+              <img src="https://images.unsplash.com/photo-1590367628204-bde83a38f515?auto=format&fit=crop&w=1400&q=85" alt="Cascada Pailón del Diablo en Baños" loading="lazy">
+              <span>Aventura</span>
+            </div>
+            <div class="p-4">
+              <p class="eyebrow">Ecuador · 2 días / 1 noche</p>
+              <h3>Baños</h3>
+              <p>Cascadas y aventura entre montañas.</p>
+              <div class="price-row">
+                <div>
+                  <small>Desde</small>
+                  <strong>$120</strong>
+                  <small>por persona</small>
+                </div>
+                <button class="btn btn-outline-dark agregar" type="button" data-viaje="Baños" data-precio="120">Seleccionar ↗</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="col-md-6 col-lg-4 destino" data-nombre="Punta Cana República Dominicana" data-categoria="Playa">
+          <div class="trip-card h-100">
+            <div class="trip-photo">
+              <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85" alt="Playa de Punta Cana al atardecer" loading="lazy">
+              <span>Playa</span>
+            </div>
+            <div class="p-4">
+              <p class="eyebrow">Rep. Dominicana · 6 días / 5 noches</p>
+              <h3>Punta Cana</h3>
+              <p>Una escapada bajo las palmeras.</p>
+              <div class="price-row">
+                <div>
+                  <small>Desde</small>
+                  <strong>$720</strong>
+                  <small>por persona</small>
+                </div>
+                <button class="btn btn-outline-dark agregar" type="button" data-viaje="Punta Cana" data-precio="720">Seleccionar ↗</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <p class="fine mt-3">Los paquetes incluyen alojamiento y recorrido local. No incluyen vuelos.</p>
+    </section>
+
+    <!-- Selección -->
+    <section id="seleccion" class="container section">
+      <div class="selection">
+        <p class="eyebrow">TU LISTA DE VIAJE</p>
+        <h2>Paquetes seleccionados</h2>
+        <div id="lista-seleccion"></div>
+        <p id="total" class="total"></p>
+        <a href="contacto.html" class="btn btn-coral">Consultar por estos viajes ↗</a>
+        <button id="vaciar" type="button" class="btn btn-outline-dark">Vaciar selección</button>
+        <p class="fine mt-3">Tu selección se guarda aunque cambies de página. Para reservar, envíanos tu consulta.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <a class="footer-logo" href="index.html">mundotravel ↗</a>
+          <p>Un destino. Mil formas de vivirlo.</p>
+        </div>
+        <div class="col-md-3">
+          <h3>Explora</h3>
+          <a href="viajes.html">Nuestros viajes</a>
+          <a href="nosotros.html">Nosotros</a>
+          <a href="contacto.html">Planifica tu viaje</a>
+        </div>
+        <div class="col-md-3">
+          <h3>Contacto</h3>
+          <p>Quito, Ecuador<br>hola@mundotravelquito.com<br>Lunes a viernes, 09:00 a 18:00</p>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Mundo Travel · Proyecto académico · <a href="nosotros.html#equipo">Equipo</a></div>
+    </div>
+  </footer>
+
+  <!-- Aviso -->
+  <div id="aviso" role="status" aria-live="polite"></div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
 </html>
