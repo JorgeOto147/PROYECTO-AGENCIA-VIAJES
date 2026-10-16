@@ -1,22 +1,109 @@
-// Buscador de viajes
-const buscador = document.getElementById('buscador');
-const resultado = document.getElementById('resultado');
+// Mundo Travel - script.js
+// Mateo Villarroel
 
-const quitarTildes = (texto) => {
-  return texto.replaceAll('á', 'a').replaceAll('é', 'e').replaceAll('í', 'i').replaceAll('ó', 'o').replaceAll('ú', 'u');
-};
 
-const buscarViajes = () => {
-  const texto = quitarTildes(document.getElementById('buscar').value.toLowerCase().trim());
-  const categoria = document.getElementById('categoria').value;
-  const destinos = document.querySelectorAll('.destino');
+// ---------- Funciones generales ----------
+
+let tiempoAviso;
+
+function mostrarAviso(texto) {
+  let aviso = document.getElementById('aviso');
+  aviso.textContent = texto;
+  aviso.classList.add('visible');
+  clearTimeout(tiempoAviso);
+  tiempoAviso = setTimeout(function () {
+    aviso.classList.remove('visible');
+  }, 2500);
+}
+
+// para que "galapagos" encuentre "Galápagos"
+function quitarTildes(texto) {
+  return texto.toLowerCase()
+    .replaceAll('á', 'a')
+    .replaceAll('é', 'e')
+    .replaceAll('í', 'i')
+    .replaceAll('ó', 'o')
+    .replaceAll('ú', 'u')
+    .replaceAll('ü', 'u')
+    .replaceAll('ñ', 'n');
+}
+
+
+// ---------- Selección de viajes ----------
+// se guarda en localStorage para no perderla al cambiar de página
+
+let CLAVE = 'mundoTravelSeleccion';
+
+function leerSeleccion() {
+  try {
+    let guardado = localStorage.getItem(CLAVE);
+    if (guardado) {
+      let datos = JSON.parse(guardado);
+      if (Array.isArray(datos)) {
+        return datos;
+      }
+    }
+  } catch (error) {
+    console.log('No se pudo leer la selección');
+  }
+  return [];
+}
+
+function guardarSeleccion() {
+  try {
+    localStorage.setItem(CLAVE, JSON.stringify(seleccion));
+  } catch (error) {
+    console.log('No se pudo guardar la selección');
+  }
+}
+
+function estaSeleccionado(nombre) {
+  for (let i = 0; i < seleccion.length; i++) {
+    if (seleccion[i].nombre === nombre) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function calcularTotal() {
+  let total = 0;
+  for (let i = 0; i < seleccion.length; i++) {
+    total = total + seleccion[i].precio;
+  }
+  return total;
+}
+
+function actualizarContador() {
+  let contadores = document.querySelectorAll('.contador');
+  for (let i = 0; i < contadores.length; i++) {
+    contadores[i].textContent = seleccion.length;
+  }
+}
+
+let seleccion = leerSeleccion();
+actualizarContador();
+
+
+// ---------- Viajes: buscador ----------
+
+let buscador = document.getElementById('buscador');
+let campoBuscar = document.getElementById('buscar');
+let campoCategoria = document.getElementById('categoria');
+let resultado = document.getElementById('resultado');
+
+function buscarViajes() {
+  let texto = quitarTildes(campoBuscar.value.trim());
+  let categoria = campoCategoria.value;
+  let destinos = document.querySelectorAll('.destino');
   let encontrados = 0;
 
   for (let i = 0; i < destinos.length; i++) {
-    const nombre = quitarTildes(destinos[i].getAttribute('data-nombre').toLowerCase());
-    const tipo = destinos[i].getAttribute('data-categoria');
+    let nombre = quitarTildes(destinos[i].getAttribute('data-nombre'));
+    let tipo = destinos[i].getAttribute('data-categoria');
+
     if (nombre.includes(texto) && (categoria === '' || tipo === categoria)) {
-      destinos[i].style.display = 'block';
+      destinos[i].style.display = '';
       encontrados++;
     } else {
       destinos[i].style.display = 'none';
@@ -25,91 +112,159 @@ const buscarViajes = () => {
 
   if (encontrados === 0) {
     resultado.textContent = 'No encontramos ese viaje. Prueba otro destino o categoría.';
+  } else if (encontrados === 1) {
+    resultado.textContent = '1 viaje encontrado.';
   } else {
-    resultado.textContent = encontrados + ' viajes encontrados en esta página.';
+    resultado.textContent = encontrados + ' viajes encontrados.';
   }
-};
+}
 
 if (buscador) {
-  buscador.addEventListener('submit', (evento) => {
+  // si viene del inicio, la búsqueda llega en la URL: viajes.html?destino=banos
+  let parametros = new URLSearchParams(window.location.search);
+  if (parametros.get('destino')) {
+    campoBuscar.value = parametros.get('destino');
+  }
+  if (parametros.get('categoria')) {
+    campoCategoria.value = parametros.get('categoria');
+  }
+  buscarViajes();
+
+  buscador.addEventListener('submit', function (evento) {
     evento.preventDefault();
     buscarViajes();
   });
-  document.getElementById('categoria').addEventListener('change', buscarViajes);
+  campoBuscar.addEventListener('input', buscarViajes);
+  campoCategoria.addEventListener('change', buscarViajes);
+
+  document.getElementById('ver-todos').addEventListener('click', function () {
+    campoBuscar.value = '';
+    campoCategoria.value = '';
+    buscarViajes();
+  });
 }
 
-// Selección de viajes
-const nombres = ['Galápagos', 'Cartagena', 'Cancún', 'Cuenca', 'Baños', 'Punta Cana'];
-const precios = [450, 380, 650, 180, 120, 720];
-let seleccion = [];
-const lista = document.getElementById('lista-seleccion');
 
-const mostrarSeleccion = () => {
+// ---------- Viajes: lista de seleccionados ----------
+
+let lista = document.getElementById('lista-seleccion');
+
+function actualizarBotones() {
+  let botones = document.querySelectorAll('.agregar');
+  for (let i = 0; i < botones.length; i++) {
+    let nombre = botones[i].getAttribute('data-viaje');
+    if (estaSeleccionado(nombre)) {
+      botones[i].textContent = 'Seleccionado ✓';
+      botones[i].classList.add('seleccionado');
+    } else {
+      botones[i].textContent = 'Seleccionar ↗';
+      botones[i].classList.remove('seleccionado');
+    }
+  }
+}
+
+function mostrarSeleccion() {
   lista.innerHTML = '';
-  let total = 0;
 
   for (let i = 0; i < seleccion.length; i++) {
-    const id = seleccion[i];
-    const fila = document.createElement('div');
+    let fila = document.createElement('div');
     fila.className = 'selection-row';
 
-    const descripcion = document.createElement('p');
-    descripcion.textContent = nombres[id] + ' · 1 persona · $' + precios[id];
+    let descripcion = document.createElement('p');
+    descripcion.textContent = seleccion[i].nombre + ' · 1 persona · $' + seleccion[i].precio;
 
-    const boton = document.createElement('button');
+    let boton = document.createElement('button');
+    boton.type = 'button';
     boton.textContent = 'Eliminar';
     boton.className = 'btn btn-outline-dark';
-    boton.addEventListener('click', () => {
+    boton.addEventListener('click', function () {
+      let nombre = seleccion[i].nombre;
       seleccion.splice(i, 1);
+      guardarSeleccion();
       mostrarSeleccion();
+      mostrarAviso(nombre + ' se quitó de tu selección.');
     });
 
     fila.appendChild(descripcion);
     fila.appendChild(boton);
     lista.appendChild(fila);
-    total = total + precios[id];
   }
 
-  if (seleccion.length === 0) lista.textContent = 'Todavía no has seleccionado un viaje.';
-  document.getElementById('total').textContent = 'Total orientativo: $' + total;
+  if (seleccion.length === 0) {
+    lista.textContent = 'Todavía no has seleccionado un viaje.';
+  }
 
-  const contadores = document.querySelectorAll('.contador');
-  for (let i = 0; i < contadores.length; i++) contadores[i].textContent = seleccion.length;
-};
+  document.getElementById('total').textContent = 'Total estimado: $' + calcularTotal();
+  actualizarContador();
+  actualizarBotones();
+}
 
 if (lista) {
-  const botones = document.querySelectorAll('.agregar');
+  let botones = document.querySelectorAll('.agregar');
   for (let i = 0; i < botones.length; i++) {
-    botones[i].addEventListener('click', () => {
-      const id = Number(botones[i].getAttribute('data-id'));
-      if (seleccion.includes(id)) {
-        alert('Este viaje ya está seleccionado.');
+    botones[i].addEventListener('click', function () {
+      let nombre = botones[i].getAttribute('data-viaje');
+      let precio = Number(botones[i].getAttribute('data-precio'));
+
+      if (estaSeleccionado(nombre)) {
+        mostrarAviso(nombre + ' ya está en tu selección.');
       } else {
-        seleccion.push(id);
+        seleccion.push({ nombre: nombre, precio: precio });
+        guardarSeleccion();
         mostrarSeleccion();
+        mostrarAviso(nombre + ' se agregó a tu selección.');
       }
     });
   }
 
-  document.getElementById('vaciar').addEventListener('click', () => {
+  document.getElementById('vaciar').addEventListener('click', function () {
     seleccion = [];
+    guardarSeleccion();
     mostrarSeleccion();
+    mostrarAviso('Tu selección está vacía.');
   });
+
   mostrarSeleccion();
 }
 
-// Formulario de contacto
-const formulario = document.getElementById('formulario');
+
+// ---------- Contacto ----------
+
+let resumen = document.getElementById('resumen-seleccion');
+
+if (resumen) {
+  if (seleccion.length === 0) {
+    resumen.innerHTML = '<p>Aún no has elegido paquetes. Puedes verlos en <a href="viajes.html">Viajes</a>.</p>';
+  } else {
+    let nombres = [];
+    for (let i = 0; i < seleccion.length; i++) {
+      nombres.push(seleccion[i].nombre + ' ($' + seleccion[i].precio + ')');
+    }
+    resumen.innerHTML = '';
+    let texto = document.createElement('p');
+    texto.textContent = 'Paquetes que te interesan: ' + nombres.join(', ') +
+      '. Total estimado: $' + calcularTotal() + '. ';
+    let enlace = document.createElement('a');
+    enlace.href = 'viajes.html#seleccion';
+    enlace.textContent = 'Editar selección';
+    texto.appendChild(enlace);
+    resumen.appendChild(texto);
+
+    document.getElementById('destino-contacto').value = seleccion[0].nombre;
+  }
+}
+
+let formulario = document.getElementById('formulario');
 
 if (formulario) {
-  formulario.addEventListener('submit', (evento) => {
+  formulario.addEventListener('submit', function (evento) {
     evento.preventDefault();
-    const nombre = document.getElementById('nombre').value.trim();
-    const mensaje = document.getElementById('mensaje').value.trim();
-    const estado = document.getElementById('estado-formulario');
+    let nombre = document.getElementById('nombre').value.trim();
+    let mensaje = document.getElementById('mensaje').value.trim();
+    let estado = document.getElementById('estado-formulario');
 
     if (nombre.length < 3 || mensaje.length < 10) {
-      estado.textContent = 'Escribe un nombre de al menos 3 caracteres y un mensaje de al menos 10.';
+      estado.textContent = 'Escribe un nombre de al menos 3 letras y un mensaje de al menos 10.';
     } else {
       estado.textContent = '¡Gracias, ' + nombre + '! Recibimos tu consulta y te responderemos pronto.';
       formulario.reset();
