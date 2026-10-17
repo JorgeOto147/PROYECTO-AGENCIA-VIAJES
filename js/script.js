@@ -254,6 +254,9 @@ if (resumen) {
   }
 }
 
+// URL de la hoja de Google (Apps Script). Pegar aquí la URL que termina en /exec
+let URL_HOJA = 'https://script.google.com/macros/s/AKfycbwlqANlZae1pltixKm8hJaGOZ6L2KfOmyelSt6uTIzf8kK_k7VZrVhd7poKKBp7DHJx/exec';
+
 let formulario = document.getElementById('formulario');
 
 if (formulario) {
@@ -262,12 +265,41 @@ if (formulario) {
     let nombre = document.getElementById('nombre').value.trim();
     let mensaje = document.getElementById('mensaje').value.trim();
     let estado = document.getElementById('estado-formulario');
+    let boton = formulario.querySelector('button[type="submit"]');
 
     if (nombre.length < 3 || mensaje.length < 10) {
       estado.textContent = 'Escribe un nombre de al menos 3 letras y un mensaje de al menos 10.';
-    } else {
-      estado.textContent = '¡Gracias, ' + nombre + '! Recibimos tu consulta y te responderemos pronto.';
-      formulario.reset();
+      return;
     }
+
+    if (!URL_HOJA.startsWith('https://script.google.com/')) {
+      estado.textContent = '¡Gracias, ' + nombre + '! Tus datos están correctos.';
+      formulario.reset();
+      return;
+    }
+
+    // datos del formulario + paquetes elegidos en Viajes
+    let datos = new URLSearchParams(new FormData(formulario));
+    let paquetes = [];
+    for (let i = 0; i < seleccion.length; i++) {
+      paquetes.push(seleccion[i].nombre);
+    }
+    datos.append('paquetes', paquetes.join(', '));
+
+    boton.disabled = true;
+    estado.textContent = 'Enviando...';
+
+    // fetch envía los datos por internet a la hoja de Google
+    fetch(URL_HOJA, { method: 'POST', mode: 'no-cors', body: datos })
+      .then(function () {
+        estado.textContent = '¡Gracias, ' + nombre + '! Tu consulta se guardó y te responderemos pronto.';
+        formulario.reset();
+      })
+      .catch(function () {
+        estado.textContent = 'No se pudo enviar. Revisa tu conexión a internet e inténtalo de nuevo.';
+      })
+      .finally(function () {
+        boton.disabled = false;
+      });
   });
 }
